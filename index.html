@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home - Madison's Pixel Blog</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    font-family: 'Press Start 2P', cursive;
+    background: #cceeff;
+    overflow: hidden;
+    position: relative;
+  }
+
+  nav {
+    background: #ffb6c1;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    position: relative;
+    z-index: 10;
+  }
+
+  nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 15px;
+    font-size: 16px;
+  }
+
+  nav a:hover { color: #ffe4e1; }
+
+  .cloud, .sun, .kitty, .pubby {
+    position: absolute;
+    image-rendering: pixelated;
+  }
+
+  .cloud {
+    width: 60px;
+    height: 40px;
+    background: url('https://i.ibb.co/7R9Y6sX/pixel-cloud.png') no-repeat center center;
+    background-size: contain;
+  }
+
+  .sun {
+    width: 80px;
+    height: 80px;
+    background: url('https://i.ibb.co/2ZV7kCq/pixel-sun.png') no-repeat center center;
+    background-size: contain;
+    top: 20px;
+    right: 20px;
+  }
+
+  .kitty, .pubby {
+    width: 40px;
+    height: 40px;
+    background-size: contain;
+  }
+
+  .kitty {
+    background: url('https://i.ibb.co/5F1S3Jq/pixel-kitty.png') no-repeat center center;
+  }
+
+  .pubby {
+    background: url('https://i.ibb.co/8Y7q0nB/pixel-pubby.png') no-repeat center center;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="about.html">About Me</a>
+  <a href="blog.html">Blog</a>
+  <a href="customizer.html">Character Customizer</a>
+</nav>
+
+<div class="sun"></div>
+
+<script>
+  // Create clouds
+  for(let i=0;i<5;i++){
+    const cloud = document.createElement('div');
+    cloud.className = 'cloud';
+    cloud.style.top = Math.random()*200+'px';
+    cloud.style.left = Math.random()*window.innerWidth+'px';
+    document.body.appendChild(cloud);
+
+    // Animate cloud
+    let left = parseInt(cloud.style.left);
+    setInterval(() => {
+      left += 0.3;
+      if(left > window.innerWidth) left = -60;
+      cloud.style.left = left+'px';
+    }, 30);
+  }
+
+  // Create bouncing kitties and pubbies
+  for(let i=0;i<3;i++){
+    const kitty = document.createElement('div');
+    kitty.className='kitty';
+    kitty.style.left=Math.random()*window.innerWidth+'px';
+    kitty.style.top=200 + Math.random()*200+'px';
+    document.body.appendChild(kitty);
+
+    let top = parseInt(kitty.style.top);
+    let direction = 1;
+    setInterval(()=>{
+      top += direction*2;
+      if(top>400 || top<200) direction*=-1;
+      kitty.style.top=top+'px';
+    },30);
+  }
+
+  for(let i=0;i<2;i++){
+    const pubby = document.createElement('div');
+    pubby.className='pubby';
+    pubby.style.left=Math.random()*window.innerWidth+'px';
+    pubby.style.top=250 + Math.random()*150+'px';
+    document.body.appendChild(pubby);
+
+    let top = parseInt(pubby.style.top);
+    let direction = 1;
+    setInterval(()=>{
+      top += direction*2;
+      if(top>400 || top<250) direction*=-1;
+      pubby.style.top=top+'px';
+    },30);
+  }
+
+  // Twinkling stars
+  for(let i=0;i<15;i++){
+    const star = document.createElement('div');
+    star.style.position='absolute';
+    star.style.width='3px';
+    star.style.height='3px';
+    star.style.background='yellow';
+    star.style.borderRadius='50%';
+    star.style.top=Math.random()*window.innerHeight+'px';
+    star.style.left=Math.random()*window.innerWidth+'px';
+    star.style.opacity=Math.random();
+    document.body.appendChild(star);
+
+    let opacity = parseFloat(star.style.opacity);
+    let direction = 0.02;
+    setInterval(()=>{
+      opacity += direction;
+      if(opacity>1 || opacity<0.2) direction*=-1;
+      star.style.opacity=opacity;
+    },50);
+  }
+</script>
+
+</body>
+</html>
