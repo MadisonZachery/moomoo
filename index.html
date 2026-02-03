@@ -1,158 +1,282 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Home - Madison's Pixel Blog</title>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-<style>
-  body {
-    margin: 0;
-    font-family: 'Press Start 2P', cursive;
-    background: #cceeff;
-    overflow: hidden;
-    position: relative;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maddie's World 🐮✨</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=VT323&display=swap');
 
-  nav {
-    background: #ffb6c1;
-    display: flex;
-    justify-content: center;
-    padding: 10px 0;
-    position: relative;
-    z-index: 10;
-  }
+        :root {
+            --bg-color: #e0f7fa;
+            --grass-color: #76c043;
+            --accent-pink: #ffb7b2;
+            --text-color: #4a4a4a;
+        }
 
-  nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    margin: 0 15px;
-    font-size: 16px;
-  }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            font-family: 'Fredoka One', cursive;
+            overflow: hidden; /* Keeps the cow in the yard */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
 
-  nav a:hover { color: #ffe4e1; }
+        /* --- BACKGROUND DECORATION --- */
+        .cloud {
+            position: absolute;
+            background: white;
+            border-radius: 50px;
+            opacity: 0.8;
+            animation: float 20s linear infinite;
+            z-index: -1;
+        }
 
-  .cloud, .sun, .kitty, .pubby {
-    position: absolute;
-    image-rendering: pixelated;
-  }
+        /* --- MAIN CONTENT CARD --- */
+        .container {
+            text-align: center;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(5px);
+            padding: 3rem;
+            border-radius: 30px;
+            border: 4px dashed var(--accent-pink);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 800px;
+            width: 90%;
+        }
 
-  .cloud {
-    width: 60px;
-    height: 40px;
-    background: url('https://i.ibb.co/7R9Y6sX/pixel-cloud.png') no-repeat center center;
-    background-size: contain;
-  }
+        h1 {
+            font-size: 2rem;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
 
-  .sun {
-    width: 80px;
-    height: 80px;
-    background: url('https://i.ibb.co/2ZV7kCq/pixel-sun.png') no-repeat center center;
-    background-size: contain;
-    top: 20px;
-    right: 20px;
-  }
+        /* --- THE CYCLING NICKNAME TEXT (Video Style) --- */
+        .nickname-box {
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
 
-  .kitty, .pubby {
-    width: 40px;
-    height: 40px;
-    background-size: contain;
-  }
+        .glitch-text {
+            font-family: 'VT323', monospace; /* Pixel font for the "glitch" vibe */
+            font-size: 5rem;
+            color: #ff6f91;
+            text-transform: uppercase;
+            position: relative;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
 
-  .kitty {
-    background: url('https://i.ibb.co/5F1S3Jq/pixel-kitty.png') no-repeat center center;
-  }
+        .related-item {
+            font-size: 3rem;
+            margin-top: 10px;
+            animation: slideUp 0.4s ease-out;
+        }
 
-  .pubby {
-    background: url('https://i.ibb.co/8Y7q0nB/pixel-pubby.png') no-repeat center center;
-  }
-</style>
+        /* --- COW GRID (Different Styles) --- */
+        .cow-gallery {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .cow-card {
+            width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .cow-card:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .pixel-cow { font-family: 'VT323', monospace; color: black; font-size: 1.5rem; text-align: center; line-height: 1;}
+        .real-cow img { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* --- WALKING COW ANIMATION --- */
+        .grass-floor {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 80px;
+            background-color: var(--grass-color);
+            border-top: 10px solid #5da035;
+        }
+
+        .walking-pet {
+            position: absolute;
+            bottom: 20px; /* Sitting on the grass */
+            left: -100px;
+            font-size: 4rem;
+            animation: walkAcross 15s linear infinite;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));
+            cursor: pointer;
+        }
+        
+        .walking-pet:hover {
+            animation-play-state: paused;
+        }
+
+        .munch-effect {
+            position: absolute;
+            color: #3e7a2b;
+            font-size: 1rem;
+            font-weight: bold;
+            opacity: 0;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes walkAcross {
+            0% { left: -10%; transform: scaleX(1); }
+            45% { transform: scaleX(1); }
+            50% { left: 110%; transform: scaleX(1); } 
+            51% { transform: scaleX(-1); } /* Flip to walk back? Or just loop */
+            100% { left: 110%; }
+        }
+
+        @keyframes float {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(110vw); }
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            80% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            0% { transform: translateY(20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+    </style>
 </head>
 <body>
 
-<nav>
-  <a href="index.html">Home</a>
-  <a href="about.html">About Me</a>
-  <a href="blog.html">Blog</a>
-  <a href="customizer.html">Character Customizer</a>
-</nav>
+    <div class="cloud" style="top: 10%; width: 200px; height: 60px; left: -200px; animation-duration: 25s;"></div>
+    <div class="cloud" style="top: 25%; width: 150px; height: 50px; left: -150px; animation-duration: 18s; animation-delay: 5s;"></div>
 
-<div class="sun"></div>
+    <div class="container">
+        <h1>Welcome to the Mind of</h1>
+        
+        <div class="nickname-box">
+            <div class="glitch-text" id="nicknameDisplay">MADDIE</div>
+            <div class="related-item" id="itemDisplay">✨</div>
+        </div>
 
-<script>
-  // Create clouds
-  for(let i=0;i<5;i++){
-    const cloud = document.createElement('div');
-    cloud.className = 'cloud';
-    cloud.style.top = Math.random()*200+'px';
-    cloud.style.left = Math.random()*window.innerWidth+'px';
-    document.body.appendChild(cloud);
+        <p style="color: #888; margin-top: -10px;">(Always on about cows & stars)</p>
 
-    // Animate cloud
-    let left = parseInt(cloud.style.left);
-    setInterval(() => {
-      left += 0.3;
-      if(left > window.innerWidth) left = -60;
-      cloud.style.left = left+'px';
-    }, 30);
-  }
+        <div class="cow-gallery">
+            <div class="cow-card" title="Pixel Cow">
+                <div class="pixel-cow">
+                    (..)<br>(OO)<br>/__\
+                </div>
+            </div>
+            <div class="cow-card" title="Real Fluffy Cow">
+                <img src="https://images.unsplash.com/photo-1546445317-29f4545e9d53?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Fluffy Cow">
+            </div>
+            <div class="cow-card" title="Cartoon Cow">
+                🐮
+            </div>
+            <div class="cow-card" title="Space Cow">
+                🧑‍🚀
+            </div>
+        </div>
+    </div>
 
-  // Create bouncing kitties and pubbies
-  for(let i=0;i<3;i++){
-    const kitty = document.createElement('div');
-    kitty.className='kitty';
-    kitty.style.left=Math.random()*window.innerWidth+'px';
-    kitty.style.top=200 + Math.random()*200+'px';
-    document.body.appendChild(kitty);
+    <div class="grass-floor"></div>
+    <div class="walking-pet" id="petCow">🐄</div>
 
-    let top = parseInt(kitty.style.top);
-    let direction = 1;
-    setInterval(()=>{
-      top += direction*2;
-      if(top>400 || top<200) direction*=-1;
-      kitty.style.top=top+'px';
-    },30);
-  }
+    <script>
+        // --- DATA CONFIGURATION ---
+        // I added specific icons based on your interests (stars/moon) and the names!
+        const nicknameData = [
+            { name: "MADDIE", item: "🎀" },
+            { name: "MADDIEJ", item: "💅" },
+            { name: "MOOMOO", item: "🥛" },       // Matches the cow theme
+            { name: "MOONY", item: "⭐" },        // Relating to your interest in stars
+            { name: "MOONPIE", item: "🥧" },
+            { name: "MOON", item: "🌕" },
+            { name: "LUNA", item: "🔭" },        // Astronomy vibes
+            { name: "WOOGIE", item: "💃" },       // Dance/Boogie
+            { name: "BOOGIEWOOGIE", item: "🎶" }
+        ];
 
-  for(let i=0;i<2;i++){
-    const pubby = document.createElement('div');
-    pubby.className='pubby';
-    pubby.style.left=Math.random()*window.innerWidth+'px';
-    pubby.style.top=250 + Math.random()*150+'px';
-    document.body.appendChild(pubby);
+        let currentIndex = 0;
+        const nameEl = document.getElementById('nicknameDisplay');
+        const itemEl = document.getElementById('itemDisplay');
+        const petCow = document.getElementById('petCow');
 
-    let top = parseInt(pubby.style.top);
-    let direction = 1;
-    setInterval(()=>{
-      top += direction*2;
-      if(top>400 || top<250) direction*=-1;
-      pubby.style.top=top+'px';
-    },30);
-  }
+        // --- CYCLE FUNCTION ---
+        function cycleNames() {
+            // Remove animation classes to reset them
+            nameEl.style.animation = 'none';
+            itemEl.style.animation = 'none';
+            
+            // Trigger reflow (magic trick to restart CSS animation)
+            void nameEl.offsetWidth; 
 
-  // Twinkling stars
-  for(let i=0;i<15;i++){
-    const star = document.createElement('div');
-    star.style.position='absolute';
-    star.style.width='3px';
-    star.style.height='3px';
-    star.style.background='yellow';
-    star.style.borderRadius='50%';
-    star.style.top=Math.random()*window.innerHeight+'px';
-    star.style.left=Math.random()*window.innerWidth+'px';
-    star.style.opacity=Math.random();
-    document.body.appendChild(star);
+            // Update Text
+            nameEl.innerText = nicknameData[currentIndex].name;
+            itemEl.innerText = nicknameData[currentIndex].item;
 
-    let opacity = parseFloat(star.style.opacity);
-    let direction = 0.02;
-    setInterval(()=>{
-      opacity += direction;
-      if(opacity>1 || opacity<0.2) direction*=-1;
-      star.style.opacity=opacity;
-    },50);
-  }
-</script>
+            // Re-add animation classes (mimics the fast cuts in your video)
+            nameEl.style.animation = 'popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            itemEl.style.animation = 'slideUp 0.4s ease-out';
 
+            // Randomize color slightly for that "glitch" feel
+            const colors = ['#ff6f91', '#845ec2', '#d65db1', '#ff9671', '#ffc75f'];
+            nameEl.style.color = colors[Math.floor(Math.random() * colors.length)];
+
+            // Increment index
+            currentIndex = (currentIndex + 1) % nicknameData.length;
+        }
+
+        // Cycle every 1.5 seconds (fast but readable)
+        setInterval(cycleNames, 1200);
+
+        // --- WALKING COW "EATING" LOGIC ---
+        // Occasionally makes the cow stop and "munch"
+        setInterval(() => {
+            const isEating = Math.random() > 0.7; // 30% chance to eat
+            if (isEating) {
+                // Pause animation
+                const oldState = petCow.style.animationPlayState;
+                petCow.style.animationPlayState = 'paused';
+                
+                // Change emoji to eating face or chewing
+                const originalContent = petCow.innerText;
+                petCow.innerText = "🌾🐄"; // Eating grass
+                
+                // Resume after 1 second
+                setTimeout(() => {
+                    petCow.innerText = originalContent;
+                    petCow.style.animationPlayState = 'running';
+                }, 1000);
+            }
+        }, 2000);
+
+    </script>
 </body>
 </html>
